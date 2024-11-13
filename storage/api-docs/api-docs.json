@@ -1,0 +1,214 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "My First API",
+        "version": "0.1"
+    },
+    "paths": {
+        "/api/categories": {
+            "get": {
+                "operationId": "3f5817a34833d0a1f4af4548dd3aeaba",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": null,
+                        "description": "page number"
+                    },
+                    {
+                        "name": "filters",
+                        "in": null,
+                        "description": "filters criteria"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "payload"
+                    }
+                }
+            },
+            "post": {
+                "operationId": "71fcad552bb0eaba9fb191fd8d8dcab0",
+                "requestBody": {
+                    "description": "create new category",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "array",
+                                        "required": true
+                                    },
+                                    "description": {
+                                        "type": "array",
+                                        "required": true
+                                    },
+                                    "icon": {
+                                        "type": "string",
+                                        "required": true
+                                    },
+                                    "seo": {
+                                        "type": "json",
+                                        "required": true
+                                    },
+                                    "visibility": {
+                                        "type": "json",
+                                        "required": true
+                                    },
+                                    "store_id": {
+                                        "type": "integer",
+                                        "required": true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "created successfully"
+                    }
+                }
+            },
+            "put": {
+                "operationId": "71fcad552bb0eaba9fb191fd8d8dcab0",
+                "requestBody": {
+                    "description": "update category",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "array",
+                                        "required": true
+                                    },
+                                    "description": {
+                                        "type": "array",
+                                        "required": true
+                                    },
+                                    "icon": {
+                                        "type": "string",
+                                        "required": true
+                                    },
+                                    "seo": {
+                                        "type": "json",
+                                        "required": true
+                                    },
+                                    "visibility": {
+                                        "type": "json",
+                                        "required": true
+                                    },
+                                    "store_id": {
+                                        "type": "integer",
+                                        "required": true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "updated successfully"
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "71fcad552bb0eaba9fb191fd8d8dcab0",
+                "requestBody": {
+                    "description": "delete category",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "id": {
+                                        "type": "integer",
+                                        "required": true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "deleted successfully"
+                    }
+                }
+            }
+        },
+        "/api/categories/{categoryId}/products": {
+            "post": {
+                "operationId": "71fcad552bb0eaba9fb191fd8d8dcab0",
+                "parameters": [
+                    {
+                        "name": "categoryId",
+                        "in": "path",
+                        "description": "category ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "attach product to category",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "products": {
+                                        "type": "array",
+                                        "required": true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "product attached successfully"
+                    }
+                }
+            }
+        },
+        "/api/categories/{categoryId}/products/{productId}": {
+            "delete": {
+                "operationId": "71fcad552bb0eaba9fb191fd8d8dcab0",
+                "parameters": [
+                    {
+                        "name": "categoryId",
+                        "in": "path",
+                        "description": "category ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "productId",
+                        "in": "path",
+                        "description": "product ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "product detached successfully"
+                    }
+                }
+            }
+        }
+    }
+}
