@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Enums\TaskStatusEnum;
+use App\Notifications\TaskAssignedNotification;
 
 class Task extends BaseModel
 {
@@ -28,7 +29,7 @@ class Task extends BaseModel
         'description' => 'string',
         'status' => 'integer|in:1,2,3',
         'project_id' => 'integer|exists:projects,id',
-        'user_id' => 'integer|exists:users,id|nullable',
+        // 'user_id' => 'integer|exists:users,id|nullable',
     ];
 
     public function project()
@@ -39,5 +40,18 @@ class Task extends BaseModel
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    // after updating if user_id is exists, then notifiy the user
+    // boot method is called when the model is booted
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::updated(function (Task $task) {
+            if ($task->user_id) {
+                $task->user->notify(new TaskAssignedNotification($task));
+            }
+        });
     }
 }

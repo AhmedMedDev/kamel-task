@@ -7,7 +7,9 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\RegistrationController;
 use App\Http\Controllers\Auth\VerificationController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\TaskController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,4 +44,15 @@ Route::prefix('auth')->group(function () {
 
 
 Route::apiResource('projects', ProjectController::class)->except(['show']);
+Route::apiResource('tasks', TaskController::class)->except(['show']);
+
+// we need to make an endpoint to assign task to user
+Route::post('tasks/{task}/assign', [TaskController::class, 'assignTask'])->name('tasks.assign');
+
+// create endpoint of notifications
+Route::get('notifications', [NotificationController::class, 'index'])->name('notifications.index');
+Route::post('notifications', [NotificationController::class, 'markAllAsRead'])->name('notifications.markAllAsRead');
+Route::post('notifications/{notification}', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
+Route::delete('notifications/{notification}', [NotificationController::class, 'destroy'])->name('notifications.destroy');
+Route::delete('notifications', [NotificationController::class, 'destroyAll'])->name('notifications.destroyAll');
 

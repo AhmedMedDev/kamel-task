@@ -10,28 +10,28 @@ use App\Repositories\ProjectRepository;
 class ProjectService
 {
     public function __construct(
-        private ProjectRepository $ProjectRepository){}
+        private ProjectRepository $projectRepository){}
 
     /**
      * @return Project[]
      */
     public function get(): array
     {
-        return $this->ProjectRepository->get();
+        return $this->projectRepository->get();
     }
 
     public function store(array $data): Project
     {
-        return $this->ProjectRepository->create($data);
+        return $this->projectRepository->create($data);
     }
 
-    public function update(array $request, Project $Project): bool
+    public function update(array $request, Project $project): bool
     {
-        return $this->ProjectRepository->update($request, $Project);
+        return $this->projectRepository->update($request, $project);
     }
 
-    public function delete(Project $Project): void
+    public function delete(Project $project): void
     {
-        $this->ProjectRepository->delete($Project);
+        $this->projectRepository->delete($project);
     }
 }
