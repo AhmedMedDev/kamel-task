@@ -166,13 +166,15 @@
                     <div>
                         <!-- Offcanvas -->
                         <!-- An Alpine.js and Tailwind CSS component by https://pinemix.com -->
-                        <div x-data="modalData" x-on:keydown.esc.prevent="open = false">
+                        <div x-on:keydown.esc.prevent="open = false">
                             <!-- Placeholder -->
                             <!-- Offcanvas Toggle Button -->
-                            <button x-on:click="open = true" type="button"
-                                class="inline-flex items-center justify-center gap-2 rounded-lg border border-zinc-800 bg-zinc-800 px-3 py-2 text-sm font-medium leading-5 text-white hover:border-zinc-900 hover:bg-zinc-900 hover:text-white focus:outline-none focus:ring-2 focus:ring-zinc-500/50 active:border-zinc-700 active:bg-zinc-700 dark:border-zinc-700/50 dark:bg-zinc-700/50 dark:ring-zinc-700/50 dark:hover:border-zinc-700 dark:hover:bg-zinc-700/75 dark:active:border-zinc-700/50 dark:active:bg-zinc-700/50">
-                                Create a new project
+
+                            <button class="inline-block rounded border border-indigo-600 px-12 py-3 text-sm font-medium text-indigo-600 hover:bg-indigo-600 hover:text-white focus:outline-none focus:ring active:bg-indigo-500"
+                            x-on:click="openCreationForm()" type="button">
+                            Create a new project
                             </button>
+
 
                             <!-- END Placeholder -->
 
@@ -281,10 +283,17 @@
                                             </div>
 
                                             <div class="col-span-6 sm:flex sm:items-center sm:gap-4">
-                                                <button type="submit" x-show="!loading"
+                                                <button type="submit" x-show="!loading && editingProjectId === ''"
                                                     class="inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500">
                                                     Create Project
                                                 </button>
+
+                                                <button type="button" x-show="!loading && editingProjectId !== ''"
+                                                    x-on:click="updateProject"
+                                                    class="inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500">
+                                                    Update Project
+                                                </button>
+
 
                                                 <button type="button" x-show="loading" disabled
                                                     class="flex shrink-0 rounded-md border border-blue-600 bg-transparent px-12 py-3 text-sm font-medium text-blue-600 transition  focus:outline-none focus:ring active:bg-blue-500">
@@ -317,167 +326,81 @@
                 </div>
                 {{--  --}}
 
+                {{-- Projects --}}
                 <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8">
-                    <article class="rounded-xl bg-white p-4 ring ring-indigo-50 sm:p-6 lg:p-8">
-                        <div class="flex items-start sm:gap-8">
-                            <div class="hidden sm:grid sm:size-20 sm:shrink-0 sm:place-content-center sm:rounded-full sm:border-2 sm:border-indigo-500"
-                                aria-hidden="true">
-                                <div class="flex items-center gap-1">
-                                    <span class="h-8 w-0.5 rounded-full bg-indigo-500"></span>
-                                    <span class="h-6 w-0.5 rounded-full bg-indigo-500"></span>
-                                    <span class="h-4 w-0.5 rounded-full bg-indigo-500"></span>
-                                    <span class="h-6 w-0.5 rounded-full bg-indigo-500"></span>
-                                    <span class="h-8 w-0.5 rounded-full bg-indigo-500"></span>
+                    <template x-for="project in projects" :key="project.id">
+                        <article class="rounded-xl bg-white p-4 ring ring-indigo-50 sm:p-6 lg:p-8">
+                            <div class="flex items-start sm:gap-8">
+                                <div class="hidden sm:grid sm:size-20 sm:shrink-0 sm:place-content-center sm:rounded-full sm:border-2 sm:border-indigo-500"
+                                    aria-hidden="true">
+                                    <div class="flex items-center gap-1">
+                                        <span class="h-8 w-0.5 rounded-full bg-indigo-500"></span>
+                                        <span class="h-6 w-0.5 rounded-full bg-indigo-500"></span>
+                                        <span class="h-4 w-0.5 rounded-full bg-indigo-500"></span>
+                                        <span class="h-6 w-0.5 rounded-full bg-indigo-500"></span>
+                                        <span class="h-8 w-0.5 rounded-full bg-indigo-500"></span>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div>
-                                <strong
-                                    class="rounded border border-indigo-500 bg-indigo-500 px-3 py-1.5 text-[10px] font-medium text-white">
-                                    Episode #101
-                                </strong>
+                                <div>
+                                    <strong
+                                        class="rounded border border-indigo-500 bg-indigo-500 px-3 py-1.5 text-[10px] font-medium text-white">
+                                        Project #<span x-text="project.id"></span>
+                                    </strong>
 
-                                <h3 class="mt-4 text-lg font-medium sm:text-xl">
-                                    <a href="#" class="hover:underline"> Some Interesting Podcast Title </a>
-                                </h3>
+                                    <h3 class="mt-4 text-lg font-medium sm:text-xl">
+                                        <a href="#" class="hover:underline" x-text="project.title"></a>
+                                    </h3>
 
-                                <p class="mt-1 text-sm text-gray-700">
-                                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsam nulla amet
-                                    voluptatum sit
-                                    rerum, atque, quo culpa ut necessitatibus eius suscipit eum accusamus, aperiam
-                                    voluptas
-                                    exercitationem facere aliquid fuga. Sint.
-                                </p>
+                                    <p class="mt-1 text-sm text-gray-700" x-text="project.description"></p>
 
-                                <div class="mt-4 sm:flex sm:items-center sm:gap-2">
-                                    <div class="flex items-center gap-1 text-gray-500">
-                                        <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                        </svg>
+                                    <div class="mt-4 sm:flex sm:items-center sm:gap-2">
+                                        <div class="flex items-center gap-1 text-gray-500">
+                                            <svg class="size-4" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            </svg>
 
-                                        <p class="text-xs font-medium">48:32 minutes</p>
+                                            <p class="text-xs font-medium"
+                                                x-text="new Date(project.due_date).toLocaleDateString()"></p>
+                                        </div>
+
+                                        <span class="hidden sm:block" aria-hidden="true">&middot;</span>
+
+                                        <p class="mt-2 text-xs font-medium text-gray-500 sm:mt-0">
+                                            <span
+                                                class="whitespace-nowrap rounded-full bg-purple-100 px-2.5 py-0.5 text-sm text-purple-700"
+                                                x-text="project.status === 1 ? 'Active' : 'Completed'"">
+                                            </span>
+                                        </p>
                                     </div>
 
-                                    <span class="hidden sm:block" aria-hidden="true">&middot;</span>
+                                    <span
+                                        class="inline-flex -space-x-px overflow-hidden rounded-md border bg-white shadow-sm mt-5">
+                                        <button x-on:click="editProject(project.id)"
+                                            class="inline-block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:relative">
+                                            Edit
+                                        </button>
 
-                                    <p class="mt-2 text-xs font-medium text-gray-500 sm:mt-0">
-                                        Featuring <a href="#" class="underline hover:text-gray-700">Barry</a>,
-                                        <a href="#" class="underline hover:text-gray-700">Sandra</a> and
-                                        <a href="#" class="underline hover:text-gray-700">August</a>
-                                    </p>
+                                        <button
+                                            class="inline-block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:relative">
+                                            View
+                                        </button>
+
+                                        <button
+                                            x-on:click="deleteProject(project.id)"
+                                            class="inline-block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:relative">
+                                            Delete
+                                        </button>
+                                    </span>
+
                                 </div>
                             </div>
-                        </div>
-                    </article>
-                    <article class="rounded-xl bg-white p-4 ring ring-indigo-50 sm:p-6 lg:p-8">
-                        <div class="flex items-start sm:gap-8">
-                            <div class="hidden sm:grid sm:size-20 sm:shrink-0 sm:place-content-center sm:rounded-full sm:border-2 sm:border-indigo-500"
-                                aria-hidden="true">
-                                <div class="flex items-center gap-1">
-                                    <span class="h-8 w-0.5 rounded-full bg-indigo-500"></span>
-                                    <span class="h-6 w-0.5 rounded-full bg-indigo-500"></span>
-                                    <span class="h-4 w-0.5 rounded-full bg-indigo-500"></span>
-                                    <span class="h-6 w-0.5 rounded-full bg-indigo-500"></span>
-                                    <span class="h-8 w-0.5 rounded-full bg-indigo-500"></span>
-                                </div>
-                            </div>
-
-                            <div>
-                                <strong
-                                    class="rounded border border-indigo-500 bg-indigo-500 px-3 py-1.5 text-[10px] font-medium text-white">
-                                    Episode #101
-                                </strong>
-
-                                <h3 class="mt-4 text-lg font-medium sm:text-xl">
-                                    <a href="#" class="hover:underline"> Some Interesting Podcast Title </a>
-                                </h3>
-
-                                <p class="mt-1 text-sm text-gray-700">
-                                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsam nulla amet
-                                    voluptatum sit
-                                    rerum, atque, quo culpa ut necessitatibus eius suscipit eum accusamus, aperiam
-                                    voluptas
-                                    exercitationem facere aliquid fuga. Sint.
-                                </p>
-
-                                <div class="mt-4 sm:flex sm:items-center sm:gap-2">
-                                    <div class="flex items-center gap-1 text-gray-500">
-                                        <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                        </svg>
-
-                                        <p class="text-xs font-medium">48:32 minutes</p>
-                                    </div>
-
-                                    <span class="hidden sm:block" aria-hidden="true">&middot;</span>
-
-                                    <p class="mt-2 text-xs font-medium text-gray-500 sm:mt-0">
-                                        Featuring <a href="#" class="underline hover:text-gray-700">Barry</a>,
-                                        <a href="#" class="underline hover:text-gray-700">Sandra</a> and
-                                        <a href="#" class="underline hover:text-gray-700">August</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-                    <article class="rounded-xl bg-white p-4 ring ring-indigo-50 sm:p-6 lg:p-8">
-                        <div class="flex items-start sm:gap-8">
-                            <div class="hidden sm:grid sm:size-20 sm:shrink-0 sm:place-content-center sm:rounded-full sm:border-2 sm:border-indigo-500"
-                                aria-hidden="true">
-                                <div class="flex items-center gap-1">
-                                    <span class="h-8 w-0.5 rounded-full bg-indigo-500"></span>
-                                    <span class="h-6 w-0.5 rounded-full bg-indigo-500"></span>
-                                    <span class="h-4 w-0.5 rounded-full bg-indigo-500"></span>
-                                    <span class="h-6 w-0.5 rounded-full bg-indigo-500"></span>
-                                    <span class="h-8 w-0.5 rounded-full bg-indigo-500"></span>
-                                </div>
-                            </div>
-
-                            <div>
-                                <strong
-                                    class="rounded border border-indigo-500 bg-indigo-500 px-3 py-1.5 text-[10px] font-medium text-white">
-                                    Episode #101
-                                </strong>
-
-                                <h3 class="mt-4 text-lg font-medium sm:text-xl">
-                                    <a href="#" class="hover:underline"> Some Interesting Podcast Title </a>
-                                </h3>
-
-                                <p class="mt-1 text-sm text-gray-700">
-                                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsam nulla amet
-                                    voluptatum sit
-                                    rerum, atque, quo culpa ut necessitatibus eius suscipit eum accusamus, aperiam
-                                    voluptas
-                                    exercitationem facere aliquid fuga. Sint.
-                                </p>
-
-                                <div class="mt-4 sm:flex sm:items-center sm:gap-2">
-                                    <div class="flex items-center gap-1 text-gray-500">
-                                        <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                        </svg>
-
-                                        <p class="text-xs font-medium">48:32 minutes</p>
-                                    </div>
-
-                                    <span class="hidden sm:block" aria-hidden="true">&middot;</span>
-
-                                    <p class="mt-2 text-xs font-medium text-gray-500 sm:mt-0">
-                                        Featuring <a href="#" class="underline hover:text-gray-700">Barry</a>,
-                                        <a href="#" class="underline hover:text-gray-700">Sandra</a> and
-                                        <a href="#" class="underline hover:text-gray-700">August</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
+                        </article>
+                    </template>
                 </div>
+                {{-- Projects --}}
 
             </div>
         </main>
@@ -487,6 +410,34 @@
         // create submitForm function
         function app() {
             return {
+                open: false,
+                mobileFullWidth: false,
+                position: 'end',
+                size: 'md',
+                transitionClasses: {
+                    'x-transition:enter-start'() {
+                        if (this.position === 'start') {
+                            return '-translate-x-full rtl:translate-x-full';
+                        } else if (this.position === 'end') {
+                            return 'translate-x-full rtl:-translate-x-full';
+                        } else if (this.position === 'top') {
+                            return '-translate-y-full';
+                        } else if (this.position === 'bottom') {
+                            return 'translate-y-full';
+                        }
+                    },
+                    'x-transition:leave-end'() {
+                        if (this.position === 'start') {
+                            return '-translate-x-full rtl:translate-x-full';
+                        } else if (this.position === 'end') {
+                            return 'translate-x-full rtl:-translate-x-full';
+                        } else if (this.position === 'top') {
+                            return '-translate-y-full';
+                        } else if (this.position === 'bottom') {
+                            return 'translate-y-full';
+                        }
+                    },
+                },
                 form: {
                     title: '',
                     description: '',
@@ -495,6 +446,21 @@
                 },
                 errors: {},
                 loading: false,
+                projects: [],
+                editingProjectId: '',
+                init() {
+                    this.fetchProjects();
+                },
+                openCreationForm() {
+                    this.open = true;
+                    this.editingProjectId = '';
+                    this.form = {
+                        title: '',
+                        description: '',
+                        due_date: '',
+                        status: 1,
+                    };
+                },
                 validate() {
                     this.errors = {};
 
@@ -552,6 +518,8 @@
                             return;
                         }
 
+                        this.fetchProjects();
+
                         this.loading = false;
 
                         // reset form
@@ -565,18 +533,138 @@
                         this.open = false;
 
                         this.triggerNotification('Project created successfully!', 'success')
-                        
+
                     } catch (error) {
                         console.error('Error:', error);
                     } finally {
 
                     }
                 },
-                // could create fetch projects function
+                async fetchProjects() {
+                    try {
+                        let response = await fetch('api/projects', {
+                            method: 'GET',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Accept': 'application/json',
+                                'Authorization': 'Bearer ' + localStorage.getItem('token')
+                            }
+                        });
+
+                        let data = await response.json();
+
+                        if (!response.ok) {
+                            console.error('Error fetching projects:', data);
+                            return;
+                        }
+
+                        this.projects = data.payload.data;
+
+                        console.log(this.projects);
+
+                    } catch (error) {
+                        console.error('Error:', error);
+                    }
+                },
+                // write editProject function, pass project id as parameter
+                editProject(id) {
+
+                    let project = this.projects.find(project => project.id === id);
+                    if (project) {
+                        this.form = {
+                            title: project.title,
+                            description: project.description,
+                            due_date: project.due_date,
+                            status: project.status,
+                        };
+                        this.editingProjectId = id;
+                        this.open = true;
+                    }
+                },
+                // write updateProject function
+                async updateProject() {
+                    if (!this.validate()) {
+                        return;
+                    }
+
+                    this.loading = true;
+
+                    try {
+                        let response = await fetch(`api/projects/${this.editingProjectId}`, {
+                            method: 'PUT',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Accept': 'application/json',
+                                'Authorization': 'Bearer ' + localStorage.getItem('token')
+                            },
+                            body: JSON.stringify(this.form)
+                        });
+
+                        let data = await response.json();
+
+                        if (!response.ok) {
+                            this.errors = data.errors;
+                            return;
+                        }
+
+                        this.fetchProjects();
+
+                        this.loading = false;
+
+                        // reset form
+                        this.form = {
+                            title: '',
+                            description: '',
+                            due_date: '',
+                            status: 1,
+                        };
+
+                        this.editingProjectId = '';
+
+                        this.open = false;
+
+                        this.triggerNotification('Project updated successfully!', 'success')
+
+                    } catch (error) {
+                        console.error('Error:', error);
+                    } finally {
+                        this.loading = false;
+                    }
+                },
+                // deleteProject function
+                async deleteProject(id) {
+                    if (!confirm('Are you sure you want to delete this project?')) {
+                        return;
+                    }
+
+                    try {
+                        let response = await fetch(`api/projects/${id}`, {
+                            method: 'DELETE',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Accept': 'application/json',
+                                'Authorization': 'Bearer ' + localStorage.getItem('token')
+                            }
+                        });
+
+                        let data = await response.json();
+
+                        if (!response.ok) {
+                            console.error('Error deleting project:', data);
+                            return;
+                        }
+
+                        this.fetchProjects();
+
+                        this.triggerNotification('Project deleted successfully!', 'success')
+
+                    } catch (error) {
+                        console.error('Error:', error);
+                    }
+                },
+
+
             }
         }
-
-        // modelData
-        
     </script>
 </x-guest-layout>
