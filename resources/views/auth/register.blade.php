@@ -10,7 +10,7 @@
 
             <main
                 class="flex items-center justify-center px-8 py-8 sm:px-12 lg:col-span-7 lg:px-16 lg:py-12 xl:col-span-6">
-                <div class="max-w-xl lg:max-w-3xl" x-data="loginForm()">
+                <div class="max-w-xl lg:max-w-3xl" x-data="registerForm()">
                     <a class="block text-blue-600" href="#">
                         <span class="sr-only">Home</span>
                         <svg class="h-8 sm:h-10" viewBox="0 0 28 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -21,15 +21,26 @@
                     </a>
 
                     <h1 class="mt-6 text-2xl font-bold text-gray-900 sm:text-3xl md:text-4xl">
-                        Welcome Back
+                        Welcome to Squid 🦑
                     </h1>
 
                     <p class="mt-4 leading-relaxed text-gray-500">
-                        Please log in to your account.
+                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eligendi nam dolorum aliquam,
+                        quibusdam aperiam voluptatum.
                     </p>
 
-                    <form @submit.prevent="submitForm" class="mt-8 grid grid-cols-8 gap-6">
-                        <div class="col-span-8">
+                    <form @submit.prevent="submitForm" class="mt-8 grid grid-cols-6 gap-6">
+                        <div class="col-span-6 sm:col-span-3">
+                            <label for="name" class="block text-sm font-medium text-gray-700">
+                                Name
+                            </label>
+
+                            <input type="text" id="name" name="name" x-model="form.name"
+                                class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm" />
+                            <span x-show="errors.name" class="text-red-500 text-sm" x-text="errors.name"></span>
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-3">
                             <label for="Email" class="block text-sm font-medium text-gray-700"> Email </label>
 
                             <input type="email" id="Email" name="email" x-model="form.email"
@@ -37,7 +48,7 @@
                             <span x-show="errors.email" class="text-red-500 text-sm" x-text="errors.email"></span>
                         </div>
 
-                        <div class="col-span-8">
+                        <div class="col-span-6 sm:col-span-3">
                             <label for="Password" class="block text-sm font-medium text-gray-700"> Password </label>
 
                             <input type="password" id="Password" name="password" x-model="form.password"
@@ -45,26 +56,48 @@
                             <span x-show="errors.password" class="text-red-500 text-sm" x-text="errors.password"></span>
                         </div>
 
+                        <div class="col-span-6 sm:col-span-3">
+                            <label for="PasswordConfirmation" class="block text-sm font-medium text-gray-700">
+                                Password Confirmation
+                            </label>
+
+                            <input type="password" id="PasswordConfirmation" name="password_confirmation"
+                                x-model="form.password_confirmation"
+                                class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm" />
+                            <span x-show="errors.password_confirmation" class="text-red-500 text-sm"
+                                x-text="errors.password_confirmation"></span>
+                        </div>
+
                         <div class="col-span-6">
-                            <label for="RememberMe" class="flex gap-4">
-                                <input type="checkbox" id="RememberMe" name="remember_me" x-model="form.remember_me"
+                            <label for="MarketingAccept" class="flex gap-4">
+                                <input type="checkbox" id="MarketingAccept" name="marketing_accept"
+                                    x-model="form.marketing_accept"
                                     class="size-5 rounded-md border-gray-200 bg-white shadow-sm" />
 
                                 <span class="text-sm text-gray-700">
-                                    Remember me
+                                    I want to receive emails about events, product updates and company announcements.
                                 </span>
                             </label>
+                        </div>
+
+                        <div class="col-span-6">
+                            <p class="text-sm text-gray-500">
+                                By creating an account, you agree to our
+                                <a href="#" class="text-gray-700 underline"> terms and conditions </a>
+                                and
+                                <a href="#" class="text-gray-700 underline">privacy policy</a>.
+                            </p>
                         </div>
 
                         <div class="col-span-6 sm:flex sm:items-center sm:gap-4">
                             <button type="submit"
                                 class="inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500">
-                                Log in
+                                Create an account
                             </button>
 
                             <p class="mt-4 text-sm text-gray-500 sm:mt-0">
-                                Don't have an account?
-                                <a href="{{url('register')}}" class="text-gray-700 underline">Sign up</a>.
+                                Already have an account?
+                                <a href="{{url('login')}}" class="text-gray-700 underline">Log in</a>.
                             </p>
                         </div>
                     </form>
@@ -74,17 +107,27 @@
     </section>
 
     <script>
-        function loginForm() {
+        function registerForm() {
             return {
                 form: {
+                    name: '',
                     email: '',
                     password: '',
-                    remember_me: false,
+                    password_confirmation: '',
+                    marketing_accept: false,
                     device_name: 'web'
                 },
                 errors: {},
                 validate() {
                     this.errors = {};
+
+                    if (!this.form.password_confirmation) {
+                        this.errors.password_confirmation = 'Password confirmation is required';
+                    }
+
+                    if (!this.form.name) {
+                        this.errors.name = 'Name is required';
+                    }
 
                     if (!this.form.email) {
                         this.errors.email = 'Email is required';
@@ -92,6 +135,14 @@
 
                     if (!this.form.password) {
                         this.errors.password = 'Password is required';
+                    }
+
+                    if (this.form.password !== this.form.password_confirmation) {
+                        this.errors.password_confirmation = 'Passwords do not match';
+                    }
+
+                    if (!this.form.marketing_accept) {
+                        this.errors.marketing_accept = 'You must accept marketing emails';
                     }
 
                     return Object.keys(this.errors).length === 0;
@@ -103,7 +154,7 @@
                     }
 
                     try {
-                        let response = await fetch('api/auth/login', {
+                        let response = await fetch('api/auth/register', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
@@ -111,6 +162,7 @@
                             },
                             body: JSON.stringify(this.form)
                         });
+
                         let data = await response.json();
 
                         if (!response.ok) {
@@ -118,11 +170,9 @@
                             return;
                         }
 
-                        // save to local storage
-                        localStorage.setItem('token', data.payload.token);
-                        localStorage.setItem('user', JSON.stringify(data.payload.user));
-
-                        // window.location.href = '/dashboard';
+                        // save user data to local storage
+                        
+                        window.location.href = '/login';
 
                     } catch (error) {
                         console.error('Error:', error);

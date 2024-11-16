@@ -14,6 +14,20 @@ export default {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
+            keyframes: {
+                "full-tl": {
+                    "0%": { transform: "translateX(0)" },
+                    "100%": { transform: "translateX(-100%)" },
+                },
+                "full-tr": {
+                    "0%": { transform: "translateX(0)" },
+                    "100%": { transform: "translateX(100%)" },
+                },
+            },
+            animation: {
+                "full-tl": "full-tl 25s linear infinite",
+                "full-tr": "full-tr 25s linear infinite",
+            },
         },
     },
 

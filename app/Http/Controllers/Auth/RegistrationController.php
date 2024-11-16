@@ -19,7 +19,6 @@ class RegistrationController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
-            'phone' => 'required|string|unique:users,phone',
             'email' => 'required|string|unique:users,email',
             'password' => 'required',
             'device_name' => 'required',

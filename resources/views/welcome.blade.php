@@ -1,149 +1,451 @@
 <x-guest-layout>
- 
- <section class="bg-white">
-     <div class="lg:grid lg:min-h-screen lg:grid-cols-12">
-       <aside class="relative block h-16 lg:order-last lg:col-span-5 lg:h-full xl:col-span-6">
-         <img
-           alt=""
-           src="https://images.unsplash.com/photo-1605106702734-205df224ecce?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
-           class="absolute inset-0 h-full w-full object-cover"
-         />
-       </aside>
-   
-       <main
-         class="flex items-center justify-center px-8 py-8 sm:px-12 lg:col-span-7 lg:px-16 lg:py-12 xl:col-span-6"
-       >
-         <div class="max-w-xl lg:max-w-3xl">
-           <a class="block text-blue-600" href="#">
-             <span class="sr-only">Home</span>
-             <svg
-               class="h-8 sm:h-10"
-               viewBox="0 0 28 24"
-               fill="none"
-               xmlns="http://www.w3.org/2000/svg"
-             >
-               <path
-                 d="M0.41 10.3847C1.14777 7.4194 2.85643 4.7861 5.2639 2.90424C7.6714 1.02234 10.6393 0 13.695 0C16.7507 0 19.7186 1.02234 22.1261 2.90424C24.5336 4.7861 26.2422 7.4194 26.98 10.3847H25.78C23.7557 10.3549 21.7729 10.9599 20.11 12.1147C20.014 12.1842 19.9138 12.2477 19.81 12.3047H19.67C19.5662 12.2477 19.466 12.1842 19.37 12.1147C17.6924 10.9866 15.7166 10.3841 13.695 10.3841C11.6734 10.3841 9.6976 10.9866 8.02 12.1147C7.924 12.1842 7.8238 12.2477 7.72 12.3047H7.58C7.4762 12.2477 7.376 12.1842 7.28 12.1147C5.6171 10.9599 3.6343 10.3549 1.61 10.3847H0.41ZM23.62 16.6547C24.236 16.175 24.9995 15.924 25.78 15.9447H27.39V12.7347H25.78C24.4052 12.7181 23.0619 13.146 21.95 13.9547C21.3243 14.416 20.5674 14.6649 19.79 14.6649C19.0126 14.6649 18.2557 14.416 17.63 13.9547C16.4899 13.1611 15.1341 12.7356 13.745 12.7356C12.3559 12.7356 11.0001 13.1611 9.86 13.9547C9.2343 14.416 8.4774 14.6649 7.7 14.6649C6.9226 14.6649 6.1657 14.416 5.54 13.9547C4.4144 13.1356 3.0518 12.7072 1.66 12.7347H0V15.9447H1.61C2.39051 15.924 3.154 16.175 3.77 16.6547C4.908 17.4489 6.2623 17.8747 7.65 17.8747C9.0377 17.8747 10.392 17.4489 11.53 16.6547C12.1468 16.1765 12.9097 15.9257 13.69 15.9447C14.4708 15.9223 15.2348 16.1735 15.85 16.6547C16.9901 17.4484 18.3459 17.8738 19.735 17.8738C21.1241 17.8738 22.4799 17.4484 23.62 16.6547ZM23.62 22.3947C24.236 21.915 24.9995 21.664 25.78 21.6847H27.39V18.4747H25.78C24.4052 18.4581 23.0619 18.886 21.95 19.6947C21.3243 20.156 20.5674 20.4049 19.79 20.4049C19.0126 20.4049 18.2557 20.156 17.63 19.6947C16.4899 18.9011 15.1341 18.4757 13.745 18.4757C12.3559 18.4757 11.0001 18.9011 9.86 19.6947C9.2343 20.156 8.4774 20.4049 7.7 20.4049C6.9226 20.4049 6.1657 20.156 5.54 19.6947C4.4144 18.8757 3.0518 18.4472 1.66 18.4747H0V21.6847H1.61C2.39051 21.664 3.154 21.915 3.77 22.3947C4.908 23.1889 6.2623 23.6147 7.65 23.6147C9.0377 23.6147 10.392 23.1889 11.53 22.3947C12.1468 21.9165 12.9097 21.6657 13.69 21.6847C14.4708 21.6623 15.2348 21.9135 15.85 22.3947C16.9901 23.1884 18.3459 23.6138 19.735 23.6138C21.1241 23.6138 22.4799 23.1884 23.62 22.3947Z"
-                 fill="currentColor"
-               />
-             </svg>
-           </a>
-   
-           <h1 class="mt-6 text-2xl font-bold text-gray-900 sm:text-3xl md:text-4xl">
-             Welcome to Squid 🦑
-           </h1>
-   
-           <p class="mt-4 leading-relaxed text-gray-500">
-             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eligendi nam dolorum aliquam,
-             quibusdam aperiam voluptatum.
-           </p>
-   
-           <form action="#" class="mt-8 grid grid-cols-6 gap-6">
-             <div class="col-span-6 sm:col-span-3">
-               <label for="FirstName" class="block text-sm font-medium text-gray-700">
-                 First Name
-               </label>
-   
-               <input
-                 type="text"
-                 id="FirstName"
-                 name="first_name"
-                 class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-               />
-             </div>
-   
-             <div class="col-span-6 sm:col-span-3">
-               <label for="LastName" class="block text-sm font-medium text-gray-700">
-                 Last Name
-               </label>
-   
-               <input
-                 type="text"
-                 id="LastName"
-                 name="last_name"
-                 class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-               />
-             </div>
-   
-             <div class="col-span-6">
-               <label for="Email" class="block text-sm font-medium text-gray-700"> Email </label>
-   
-               <input
-                 type="email"
-                 id="Email"
-                 name="email"
-                 class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-               />
-             </div>
-   
-             <div class="col-span-6 sm:col-span-3">
-               <label for="Password" class="block text-sm font-medium text-gray-700"> Password </label>
-   
-               <input
-                 type="password"
-                 id="Password"
-                 name="password"
-                 class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-               />
-             </div>
-   
-             <div class="col-span-6 sm:col-span-3">
-               <label for="PasswordConfirmation" class="block text-sm font-medium text-gray-700">
-                 Password Confirmation
-               </label>
-   
-               <input
-                 type="password"
-                 id="PasswordConfirmation"
-                 name="password_confirmation"
-                 class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-               />
-             </div>
-   
-             <div class="col-span-6">
-               <label for="MarketingAccept" class="flex gap-4">
-                 <input
-                   type="checkbox"
-                   id="MarketingAccept"
-                   name="marketing_accept"
-                   class="size-5 rounded-md border-gray-200 bg-white shadow-sm"
-                 />
-   
-                 <span class="text-sm text-gray-700">
-                   I want to receive emails about events, product updates and company announcements.
-                 </span>
-               </label>
-             </div>
-   
-             <div class="col-span-6">
-               <p class="text-sm text-gray-500">
-                 By creating an account, you agree to our
-                 <a href="#" class="text-gray-700 underline"> terms and conditions </a>
-                 and
-                 <a href="#" class="text-gray-700 underline">privacy policy</a>.
-               </p>
-             </div>
-   
-             <div class="col-span-6 sm:flex sm:items-center sm:gap-4">
-               <button
-                 class="inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500"
-               >
-                 Create an account
-               </button>
-   
-               <p class="mt-4 text-sm text-gray-500 sm:mt-0">
-                 Already have an account?
-                 <a href="#" class="text-gray-700 underline">Log in</a>.
-               </p>
-             </div>
-           </form>
-         </div>
-       </main>
-     </div>
-   </section>
 
-   <script>
-    
-   </script>
- </x-guest-layout>
- 
+    <div class="min-h-full">
+        <nav class="bg-gray-800">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <div class="flex h-16 items-center justify-between">
+                    <div class="flex items-center">
+                        <div class="shrink-0">
+                            <img class="size-8"
+                                src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=500"
+                                alt="Your Company">
+                        </div>
+                        <div class="hidden md:block">
+                            <div class="ml-10 flex items-baseline space-x-4">
+                                <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+                                <a href="#"
+                                    class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white"
+                                    aria-current="page">Dashboard</a>
+                                <a href="#"
+                                    class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Team</a>
+                                <a href="#"
+                                    class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Projects</a>
+                                <a href="#"
+                                    class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Calendar</a>
+                                <a href="#"
+                                    class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Reports</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hidden md:block">
+                        <div class="ml-4 flex items-center md:ml-6">
+                            <button type="button"
+                                class="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                                <span class="absolute -inset-1.5"></span>
+                                <span class="sr-only">View notifications</span>
+                                <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                    stroke="currentColor" aria-hidden="true" data-slot="icon">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
+                                </svg>
+                            </button>
+
+                            <!-- Profile dropdown -->
+                            <div class="relative ml-3">
+                                <div>
+                                    <button type="button"
+                                        class="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                                        id="user-menu-button" aria-expanded="false" aria-haspopup="true">
+                                        <span class="absolute -inset-1.5"></span>
+                                        <span class="sr-only">Open user menu</span>
+                                        <img class="size-8 rounded-full"
+                                            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                            alt="">
+                                    </button>
+                                </div>
+
+                                <!--
+                Dropdown menu, show/hide based on menu state.
+
+                Entering: "transition ease-out duration-100"
+                  From: "transform opacity-0 scale-95"
+                  To: "transform opacity-100 scale-100"
+                Leaving: "transition ease-in duration-75"
+                  From: "transform opacity-100 scale-100"
+                  To: "transform opacity-0 scale-95"
+              -->
+                                {{-- <div class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black/5 focus:outline-none"
+                                    role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button"
+                                    tabindex="-1">
+                                    <!-- Active: "bg-gray-100 outline-none", Not Active: "" -->
+                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem"
+                                        tabindex="-1" id="user-menu-item-0">Your Profile</a>
+                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem"
+                                        tabindex="-1" id="user-menu-item-1">Settings</a>
+                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem"
+                                        tabindex="-1" id="user-menu-item-2">Sign out</a>
+                                </div> --}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="-mr-2 flex md:hidden">
+                        <!-- Mobile menu button -->
+                        <button type="button"
+                            class="relative inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                            aria-controls="mobile-menu" aria-expanded="false">
+                            <span class="absolute -inset-0.5"></span>
+                            <span class="sr-only">Open main menu</span>
+                            <!-- Menu open: "hidden", Menu closed: "block" -->
+                            <svg class="block size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" aria-hidden="true" data-slot="icon">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                            </svg>
+                            <!-- Menu open: "block", Menu closed: "hidden" -->
+                            <svg class="hidden size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" aria-hidden="true" data-slot="icon">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile menu, show/hide based on menu state. -->
+            <div class="md:hidden" id="mobile-menu">
+                <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
+                    <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+                    <a href="#" class="block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white"
+                        aria-current="page">Dashboard</a>
+                    <a href="#"
+                        class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Team</a>
+                    <a href="#"
+                        class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Projects</a>
+                    <a href="#"
+                        class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Calendar</a>
+                    <a href="#"
+                        class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Reports</a>
+                </div>
+                <div class="border-t border-gray-700 pb-3 pt-4">
+                    <div class="flex items-center px-5">
+                        <div class="shrink-0">
+                            <img class="size-10 rounded-full"
+                                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                alt="">
+                        </div>
+                        <div class="ml-3">
+                            <div class="text-base/5 font-medium text-white">Tom Cook</div>
+                            <div class="text-sm font-medium text-gray-400">tom@example.com</div>
+                        </div>
+                        <button type="button"
+                            class="relative ml-auto shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                            <span class="absolute -inset-1.5"></span>
+                            <span class="sr-only">View notifications</span>
+                            <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" aria-hidden="true" data-slot="icon">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="mt-3 space-y-1 px-2">
+                        <a href="#"
+                            class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Your
+                            Profile</a>
+                        <a href="#"
+                            class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Settings</a>
+                        <a href="#"
+                            class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Sign
+                            out</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <header class="bg-white shadow">
+            <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+                <h1 class="text-3xl font-bold tracking-tight text-gray-900">Dashboard</h1>
+            </div>
+        </header>
+
+        <main>
+            <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+                {{--  --}}
+                {{-- create a div with margin --}}
+                <div class="mb-8">
+                    <div>
+                        <!-- Offcanvas -->
+                        <!-- An Alpine.js and Tailwind CSS component by https://pinemix.com -->
+                        <div x-data="{
+                            open: false,
+                            mobileFullWidth: false,
+                        
+                            // 'start', 'end', 'top', 'bottom'
+                            position: 'end',
+                        
+                            // 'xs', 'sm', 'md', 'lg', 'xl'
+                            size: 'md',
+                        
+                            // Set transition classes based on position
+                            transitionClasses: {
+                                'x-transition:enter-start'() {
+                                    if (this.position === 'start') {
+                                        return '-translate-x-full rtl:translate-x-full';
+                                    } else if (this.position === 'end') {
+                                        return 'translate-x-full rtl:-translate-x-full';
+                                    } else if (this.position === 'top') {
+                                        return '-translate-y-full';
+                                    } else if (this.position === 'bottom') {
+                                        return 'translate-y-full';
+                                    }
+                                },
+                                'x-transition:leave-end'() {
+                                    if (this.position === 'start') {
+                                        return '-translate-x-full rtl:translate-x-full';
+                                    } else if (this.position === 'end') {
+                                        return 'translate-x-full rtl:-translate-x-full';
+                                    } else if (this.position === 'top') {
+                                        return '-translate-y-full';
+                                    } else if (this.position === 'bottom') {
+                                        return 'translate-y-full';
+                                    }
+                                },
+                            },
+                        }" x-on:keydown.esc.prevent="open = false">
+                            <!-- Placeholder -->
+                            <!-- Offcanvas Toggle Button -->
+                            <button x-on:click="open = true" type="button"
+                                class="inline-flex items-center justify-center gap-2 rounded-lg border border-zinc-800 bg-zinc-800 px-3 py-2 text-sm font-medium leading-5 text-white hover:border-zinc-900 hover:bg-zinc-900 hover:text-white focus:outline-none focus:ring-2 focus:ring-zinc-500/50 active:border-zinc-700 active:bg-zinc-700 dark:border-zinc-700/50 dark:bg-zinc-700/50 dark:ring-zinc-700/50 dark:hover:border-zinc-700 dark:hover:bg-zinc-700/75 dark:active:border-zinc-700/50 dark:active:bg-zinc-700/50">
+                                Create a new project
+                            </button>
+
+                            <!-- END Placeholder -->
+
+                            <!-- Offcanvas Backdrop -->
+                            <div x-cloak x-show="open" x-transition:enter="transition ease-out duration-300"
+                                x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+                                x-transition:leave="transition ease-in duration-200"
+                                x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+                                x-bind:aria-hidden="!open" tabindex="-1" role="dialog"
+                                aria-labelledby="pm-offcanvas-title"
+                                class="z-90 fixed inset-0 overflow-hidden bg-zinc-700/75 backdrop-blur-sm dark:bg-zinc-950/50">
+                                <!-- Offcanvas Sidebar -->
+                                <div x-cloak x-show="open" x-on:click.away="open = false" x-bind="transitionClasses"
+                                    x-transition:enter="transition ease-out duration-300"
+                                    x-transition:enter-end="translate-x-0 translate-y-0"
+                                    x-transition:leave="transition ease-in duration-200"
+                                    x-transition:leave-start="translate-x-0 translate-y-0" role="document"
+                                    class="absolute flex w-full flex-col bg-white shadow-lg will-change-transform dark:bg-zinc-900 dark:text-zinc-100 dark:shadow-zinc-950"
+                                    x-bind:class="{
+                                        'h-dvh top-0 end-0': position === 'end',
+                                        'h-dvh top-0 start-0': position === 'start',
+                                        'bottom-0 start-0 end-0': position === 'top',
+                                        'bottom-0 start-0 end-0': position === 'bottom',
+                                        'h-64': position === 'top' || position === 'bottom',
+                                        'sm:max-w-xs': size === 'xs' && !(position === 'top' ||
+                                            position === 'bottom'),
+                                        'sm:max-w-sm': size === 'sm' && !(position === 'top' ||
+                                            position === 'bottom'),
+                                        'sm:max-w-md': size === 'md' && !(position === 'top' ||
+                                            position === 'bottom'),
+                                        'sm:max-w-lg': size === 'lg' && !(position === 'top' ||
+                                            position === 'bottom'),
+                                        'sm:max-w-xl': size === 'xl' && !(position === 'top' ||
+                                            position === 'bottom'),
+                                        'max-w-72': !mobileFullWidth && !(position === 'top' ||
+                                            position === 'bottom'),
+                                    }">
+                                    <!-- Header -->
+                                    <div
+                                        class="flex min-h-16 flex-none items-center justify-between border-b border-zinc-100 px-5 dark:border-zinc-800 md:px-7">
+                                        <h3 id="pm-offcanvas-title" class="py-5 font-semibold">Title</h3>
+
+                                        <!-- Close Button -->
+                                        <button x-on:click="open = false" type="button"
+                                            class="inline-flex items-center justify-center gap-2 rounded-lg border border-zinc-200 bg-white px-3 py-2 text-xs font-semibold leading-5 text-zinc-800 hover:border-zinc-300 hover:text-zinc-900 hover:shadow-sm focus:ring-zinc-300/25 active:border-zinc-200 active:shadow-none dark:border-zinc-700 dark:bg-transparent dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-200 dark:focus:ring-zinc-600/50 dark:active:border-zinc-700">
+                                            <svg class="hi-solid hi-x -mx-1 inline-block size-4" fill="currentColor"
+                                                viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd"
+                                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                                    clip-rule="evenodd"></path>
+                                            </svg>
+                                        </button>
+                                        <!-- END Close Button -->
+                                    </div>
+                                    <!-- END Header -->
+
+                                    <!-- Content -->
+                                    <div class="flex grow flex-col overflow-y-auto p-5 md:p-7">
+                                        
+                                        
+                                    </div>
+                                    <!-- END Content -->
+                                </div>
+                                <!-- END Offcanvas Sidebar -->
+                            </div>
+                            <!-- END Offcanvas Backdrop -->
+                        </div>
+                        <!-- END Offcanvas -->
+
+
+                    </div>
+                </div>
+                {{--  --}}
+
+                <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8">
+                    <article class="rounded-xl bg-white p-4 ring ring-indigo-50 sm:p-6 lg:p-8">
+                        <div class="flex items-start sm:gap-8">
+                            <div class="hidden sm:grid sm:size-20 sm:shrink-0 sm:place-content-center sm:rounded-full sm:border-2 sm:border-indigo-500"
+                                aria-hidden="true">
+                                <div class="flex items-center gap-1">
+                                    <span class="h-8 w-0.5 rounded-full bg-indigo-500"></span>
+                                    <span class="h-6 w-0.5 rounded-full bg-indigo-500"></span>
+                                    <span class="h-4 w-0.5 rounded-full bg-indigo-500"></span>
+                                    <span class="h-6 w-0.5 rounded-full bg-indigo-500"></span>
+                                    <span class="h-8 w-0.5 rounded-full bg-indigo-500"></span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <strong
+                                    class="rounded border border-indigo-500 bg-indigo-500 px-3 py-1.5 text-[10px] font-medium text-white">
+                                    Episode #101
+                                </strong>
+
+                                <h3 class="mt-4 text-lg font-medium sm:text-xl">
+                                    <a href="#" class="hover:underline"> Some Interesting Podcast Title </a>
+                                </h3>
+
+                                <p class="mt-1 text-sm text-gray-700">
+                                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsam nulla amet
+                                    voluptatum sit
+                                    rerum, atque, quo culpa ut necessitatibus eius suscipit eum accusamus, aperiam
+                                    voluptas
+                                    exercitationem facere aliquid fuga. Sint.
+                                </p>
+
+                                <div class="mt-4 sm:flex sm:items-center sm:gap-2">
+                                    <div class="flex items-center gap-1 text-gray-500">
+                                        <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        </svg>
+
+                                        <p class="text-xs font-medium">48:32 minutes</p>
+                                    </div>
+
+                                    <span class="hidden sm:block" aria-hidden="true">&middot;</span>
+
+                                    <p class="mt-2 text-xs font-medium text-gray-500 sm:mt-0">
+                                        Featuring <a href="#" class="underline hover:text-gray-700">Barry</a>,
+                                        <a href="#" class="underline hover:text-gray-700">Sandra</a> and
+                                        <a href="#" class="underline hover:text-gray-700">August</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="rounded-xl bg-white p-4 ring ring-indigo-50 sm:p-6 lg:p-8">
+                        <div class="flex items-start sm:gap-8">
+                            <div class="hidden sm:grid sm:size-20 sm:shrink-0 sm:place-content-center sm:rounded-full sm:border-2 sm:border-indigo-500"
+                                aria-hidden="true">
+                                <div class="flex items-center gap-1">
+                                    <span class="h-8 w-0.5 rounded-full bg-indigo-500"></span>
+                                    <span class="h-6 w-0.5 rounded-full bg-indigo-500"></span>
+                                    <span class="h-4 w-0.5 rounded-full bg-indigo-500"></span>
+                                    <span class="h-6 w-0.5 rounded-full bg-indigo-500"></span>
+                                    <span class="h-8 w-0.5 rounded-full bg-indigo-500"></span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <strong
+                                    class="rounded border border-indigo-500 bg-indigo-500 px-3 py-1.5 text-[10px] font-medium text-white">
+                                    Episode #101
+                                </strong>
+
+                                <h3 class="mt-4 text-lg font-medium sm:text-xl">
+                                    <a href="#" class="hover:underline"> Some Interesting Podcast Title </a>
+                                </h3>
+
+                                <p class="mt-1 text-sm text-gray-700">
+                                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsam nulla amet
+                                    voluptatum sit
+                                    rerum, atque, quo culpa ut necessitatibus eius suscipit eum accusamus, aperiam
+                                    voluptas
+                                    exercitationem facere aliquid fuga. Sint.
+                                </p>
+
+                                <div class="mt-4 sm:flex sm:items-center sm:gap-2">
+                                    <div class="flex items-center gap-1 text-gray-500">
+                                        <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        </svg>
+
+                                        <p class="text-xs font-medium">48:32 minutes</p>
+                                    </div>
+
+                                    <span class="hidden sm:block" aria-hidden="true">&middot;</span>
+
+                                    <p class="mt-2 text-xs font-medium text-gray-500 sm:mt-0">
+                                        Featuring <a href="#" class="underline hover:text-gray-700">Barry</a>,
+                                        <a href="#" class="underline hover:text-gray-700">Sandra</a> and
+                                        <a href="#" class="underline hover:text-gray-700">August</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="rounded-xl bg-white p-4 ring ring-indigo-50 sm:p-6 lg:p-8">
+                        <div class="flex items-start sm:gap-8">
+                            <div class="hidden sm:grid sm:size-20 sm:shrink-0 sm:place-content-center sm:rounded-full sm:border-2 sm:border-indigo-500"
+                                aria-hidden="true">
+                                <div class="flex items-center gap-1">
+                                    <span class="h-8 w-0.5 rounded-full bg-indigo-500"></span>
+                                    <span class="h-6 w-0.5 rounded-full bg-indigo-500"></span>
+                                    <span class="h-4 w-0.5 rounded-full bg-indigo-500"></span>
+                                    <span class="h-6 w-0.5 rounded-full bg-indigo-500"></span>
+                                    <span class="h-8 w-0.5 rounded-full bg-indigo-500"></span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <strong
+                                    class="rounded border border-indigo-500 bg-indigo-500 px-3 py-1.5 text-[10px] font-medium text-white">
+                                    Episode #101
+                                </strong>
+
+                                <h3 class="mt-4 text-lg font-medium sm:text-xl">
+                                    <a href="#" class="hover:underline"> Some Interesting Podcast Title </a>
+                                </h3>
+
+                                <p class="mt-1 text-sm text-gray-700">
+                                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsam nulla amet
+                                    voluptatum sit
+                                    rerum, atque, quo culpa ut necessitatibus eius suscipit eum accusamus, aperiam
+                                    voluptas
+                                    exercitationem facere aliquid fuga. Sint.
+                                </p>
+
+                                <div class="mt-4 sm:flex sm:items-center sm:gap-2">
+                                    <div class="flex items-center gap-1 text-gray-500">
+                                        <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        </svg>
+
+                                        <p class="text-xs font-medium">48:32 minutes</p>
+                                    </div>
+
+                                    <span class="hidden sm:block" aria-hidden="true">&middot;</span>
+
+                                    <p class="mt-2 text-xs font-medium text-gray-500 sm:mt-0">
+                                        Featuring <a href="#" class="underline hover:text-gray-700">Barry</a>,
+                                        <a href="#" class="underline hover:text-gray-700">Sandra</a> and
+                                        <a href="#" class="underline hover:text-gray-700">August</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+</x-guest-layout>
