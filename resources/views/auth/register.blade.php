@@ -91,8 +91,22 @@
 
                         <div class="col-span-6 sm:flex sm:items-center sm:gap-4">
                             <button type="submit"
+                                x-show="!loading"
                                 class="inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500">
                                 Create an account
+                            </button>
+
+                            <button type="button" x-show="loading" disabled
+                                class="flex shrink-0 rounded-md border border-blue-600 bg-transparent px-12 py-3 text-sm font-medium text-blue-600 transition  focus:outline-none focus:ring active:bg-blue-500">
+                                <svg class="animate-spin h-5 w-5 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                    viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                                    </circle>
+                                    <path class="opacity-75" fill="currentColor"
+                                        d="M4 12a8 8 0 018-8V0c4.418 0 8 3.582 8 8h-2c0-3.314-2.686-6-6-6V0c-3.314 0-6 2.686-6 6H4z">
+                                    </path>
+                                </svg>
+                                Loading
                             </button>
 
                             <p class="mt-4 text-sm text-gray-500 sm:mt-0">
@@ -118,6 +132,7 @@
                     device_name: 'web'
                 },
                 errors: {},
+                loading: false,
                 validate() {
                     this.errors = {};
 
@@ -141,17 +156,14 @@
                         this.errors.password_confirmation = 'Passwords do not match';
                     }
 
-                    if (!this.form.marketing_accept) {
-                        this.errors.marketing_accept = 'You must accept marketing emails';
-                    }
-
                     return Object.keys(this.errors).length === 0;
                 },
                 async submitForm() {
-
                     if (!this.validate()) {
                         return;
                     }
+
+                    this.loading = true;
 
                     try {
                         let response = await fetch('api/auth/register', {
@@ -170,12 +182,12 @@
                             return;
                         }
 
-                        // save user data to local storage
-                        
                         window.location.href = '/login';
 
                     } catch (error) {
                         console.error('Error:', error);
+                    } finally {
+                        this.loading = false;
                     }
                 }
             }

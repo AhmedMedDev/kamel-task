@@ -158,7 +158,7 @@
             </div>
         </header>
 
-        <main>
+        <main x-data="app()">
             <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
                 {{--  --}}
                 {{-- create a div with margin --}}
@@ -166,42 +166,7 @@
                     <div>
                         <!-- Offcanvas -->
                         <!-- An Alpine.js and Tailwind CSS component by https://pinemix.com -->
-                        <div x-data="{
-                            open: false,
-                            mobileFullWidth: false,
-                        
-                            // 'start', 'end', 'top', 'bottom'
-                            position: 'end',
-                        
-                            // 'xs', 'sm', 'md', 'lg', 'xl'
-                            size: 'md',
-                        
-                            // Set transition classes based on position
-                            transitionClasses: {
-                                'x-transition:enter-start'() {
-                                    if (this.position === 'start') {
-                                        return '-translate-x-full rtl:translate-x-full';
-                                    } else if (this.position === 'end') {
-                                        return 'translate-x-full rtl:-translate-x-full';
-                                    } else if (this.position === 'top') {
-                                        return '-translate-y-full';
-                                    } else if (this.position === 'bottom') {
-                                        return 'translate-y-full';
-                                    }
-                                },
-                                'x-transition:leave-end'() {
-                                    if (this.position === 'start') {
-                                        return '-translate-x-full rtl:translate-x-full';
-                                    } else if (this.position === 'end') {
-                                        return 'translate-x-full rtl:-translate-x-full';
-                                    } else if (this.position === 'top') {
-                                        return '-translate-y-full';
-                                    } else if (this.position === 'bottom') {
-                                        return 'translate-y-full';
-                                    }
-                                },
-                            },
-                        }" x-on:keydown.esc.prevent="open = false">
+                        <div x-data="modalData" x-on:keydown.esc.prevent="open = false">
                             <!-- Placeholder -->
                             <!-- Offcanvas Toggle Button -->
                             <button x-on:click="open = true" type="button"
@@ -248,7 +213,9 @@
                                     <!-- Header -->
                                     <div
                                         class="flex min-h-16 flex-none items-center justify-between border-b border-zinc-100 px-5 dark:border-zinc-800 md:px-7">
-                                        <h3 id="pm-offcanvas-title" class="py-5 font-semibold">Title</h3>
+                                        <h3 id="pm-offcanvas-title" class="py-5 font-semibold">
+                                            Create a new project
+                                        </h3>
 
                                         <!-- Close Button -->
                                         <button x-on:click="open = false" type="button"
@@ -266,8 +233,76 @@
 
                                     <!-- Content -->
                                     <div class="flex grow flex-col overflow-y-auto p-5 md:p-7">
-                                        
-                                        
+                                        <form @submit.prevent="submitForm" class="mt-8 grid grid-cols-8 gap-6">
+                                            <div class="col-span-8">
+                                                <label for="Title" class="block text-sm font-medium text-gray-700">
+                                                    Title </label>
+
+                                                <input type="text" id="Title" name="title"
+                                                    x-model="form.title"
+                                                    class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm" />
+                                                <span x-show="errors.title" class="text-red-500 text-sm"
+                                                    x-text="errors.title"></span>
+                                            </div>
+
+                                            <div class="col-span-8">
+                                                <label for="Description"
+                                                    class="block text-sm font-medium text-gray-700"> Description
+                                                </label>
+
+                                                <textarea id="Description" name="description" x-model="form.description"
+                                                    class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"></textarea>
+                                                <span x-show="errors.description" class="text-red-500 text-sm"
+                                                    x-text="errors.description"></span>
+                                            </div>
+
+                                            <div class="col-span-8">
+                                                <label for="DueDate" class="block text-sm font-medium text-gray-700">
+                                                    Due Date </label>
+
+                                                <input type="date" id="DueDate" name="due_date"
+                                                    x-model="form.due_date"
+                                                    class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm" />
+                                                <span x-show="errors.due_date" class="text-red-500 text-sm"
+                                                    x-text="errors.due_date"></span>
+                                            </div>
+
+                                            <div class="col-span-8">
+                                                <label for="Status" class="block text-sm font-medium text-gray-700">
+                                                    Status </label>
+
+                                                <select id="Status" name="status" x-model="form.status"
+                                                    class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm">
+                                                    <option value="1">Active</option>
+                                                    <option value="2">Completed</option>
+                                                </select>
+                                                <span x-show="errors.status" class="text-red-500 text-sm"
+                                                    x-text="errors.status"></span>
+                                            </div>
+
+                                            <div class="col-span-6 sm:flex sm:items-center sm:gap-4">
+                                                <button type="submit" x-show="!loading"
+                                                    class="inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500">
+                                                    Create Project
+                                                </button>
+
+                                                <button type="button" x-show="loading" disabled
+                                                    class="flex shrink-0 rounded-md border border-blue-600 bg-transparent px-12 py-3 text-sm font-medium text-blue-600 transition  focus:outline-none focus:ring active:bg-blue-500">
+                                                    <svg class="animate-spin h-5 w-5 mr-3"
+                                                        xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                        viewBox="0 0 24 24">
+                                                        <circle class="opacity-25" cx="12" cy="12"
+                                                            r="10" stroke="currentColor" stroke-width="4">
+                                                        </circle>
+                                                        <path class="opacity-75" fill="currentColor"
+                                                            d="M4 12a8 8 0 018-8V0c4.418 0 8 3.582 8 8h-2c0-3.314-2.686-6-6-6V0c-3.314 0-6 2.686-6 6H4z">
+                                                        </path>
+                                                    </svg>
+                                                    Loading
+                                                </button>
+                                            </div>
+                                        </form>
+
                                     </div>
                                     <!-- END Content -->
                                 </div>
@@ -448,4 +483,100 @@
         </main>
     </div>
 
+    <script>
+        // create submitForm function
+        function app() {
+            return {
+                form: {
+                    title: '',
+                    description: '',
+                    due_date: '',
+                    status: 1,
+                },
+                errors: {},
+                loading: false,
+                validate() {
+                    this.errors = {};
+
+                    if (!this.form.title) {
+                        this.errors.title = 'Title is required.';
+                    } else if (typeof this.form.title !== 'string' || this.form.title.length > 255) {
+                        this.errors.title = 'Title must be a string with a maximum length of 255 characters.';
+                    }
+
+                    if (!this.form.description) {
+                        this.errors.description = 'Description is required.';
+                    } else if (typeof this.form.description !== 'string') {
+                        this.errors.description = 'Description must be a string.';
+                    }
+
+                    if (!this.form.due_date) {
+                        this.errors.due_date = 'Due date is required.';
+                    } else if (isNaN(Date.parse(this.form.due_date)) || new Date(this.form.due_date) <= new Date()) {
+                        this.errors.due_date = 'Due date must be a valid date and after today.';
+                    }
+
+                    if (!this.form.status) {
+                        this.errors.status = 'Status is required.';
+                    } else if (![1, 2].includes(parseInt(this.form.status))) {
+                        this.errors.status = 'Status must be either 1 (Active) or 2 (Completed).';
+                    }
+
+                    return Object.keys(this.errors).length === 0;
+                },
+                async submitForm() {
+
+                    if (!this.validate()) {
+                        return;
+                    }
+
+                    this.loading = true;
+
+                    try {
+
+                        // api/projects endpoint + send token in the header 
+                        let response = await fetch('api/projects', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Accept': 'application/json',
+                                'Authorization': 'Bearer ' + localStorage.getItem('token')
+                            },
+                            body: JSON.stringify(this.form)
+                        });
+
+                        let data = await response.json();
+
+                        if (!response.ok) {
+                            this.errors = data.errors;
+                            return;
+                        }
+
+                        this.loading = false;
+
+                        // reset form
+                        this.form = {
+                            title: '',
+                            description: '',
+                            due_date: '',
+                            status: 1,
+                        };
+
+                        this.open = false;
+
+                        this.triggerNotification('Project created successfully!', 'success')
+                        
+                    } catch (error) {
+                        console.error('Error:', error);
+                    } finally {
+
+                    }
+                },
+                // could create fetch projects function
+            }
+        }
+
+        // modelData
+        
+    </script>
 </x-guest-layout>
