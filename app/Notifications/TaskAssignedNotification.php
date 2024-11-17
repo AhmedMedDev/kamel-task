@@ -48,9 +48,8 @@ class TaskAssignedNotification extends Notification
     {
         return [
             'task_id' => $this->task->id,
-            'task_title' => $this->task->title,
-            'project_id' => $this->task->project_id,
             'assigned_at' => now(),
+            'message' => "Task '{$this->task->title}' has been assigned to you in project '{$this->task->project->title}'",
         ];
     }
 }

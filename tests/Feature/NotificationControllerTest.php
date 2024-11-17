@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Notification;
 
 class NotificationControllerTest extends TestCase
 {
-    use RefreshDatabase;
+    // use RefreshDatabase;
 
     private array $headers = [
         'Accept' => 'application/json',

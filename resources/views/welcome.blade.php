@@ -28,54 +28,119 @@
                         </div>
                     </div>
                     <div class="hidden md:block">
-                        <div class="ml-4 flex items-center md:ml-6">
-                            <button type="button"
-                                class="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                                <span class="absolute -inset-1.5"></span>
-                                <span class="sr-only">View notifications</span>
-                                <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                    stroke="currentColor" aria-hidden="true" data-slot="icon">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
-                                </svg>
-                            </button>
+                        <div class="ml-4 flex items-center md:ml-6" x-data="notificationApp">
 
-                            <!-- Profile dropdown -->
-                            <div class="relative ml-3">
-                                <div>
-                                    <button type="button"
-                                        class="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                                        id="user-menu-button" aria-expanded="false" aria-haspopup="true">
-                                        <span class="absolute -inset-1.5"></span>
-                                        <span class="sr-only">Open user menu</span>
-                                        <img class="size-8 rounded-full"
-                                            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                            alt="">
-                                    </button>
+
+                            {{--  --}}
+                            <!-- Offcanvas -->
+                            <!-- An Alpine.js and Tailwind CSS component by https://pinemix.com -->
+                            <div x-on:keydown.esc.prevent="open = false">
+
+                                <button type="button" x-on:click="open = true"
+                                    class="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                                    <span class="absolute -inset-1.5"></span>
+                                    <span class="sr-only">View notifications</span>
+                                    <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                        stroke="currentColor" aria-hidden="true" data-slot="icon">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
+                                    </svg>
+                                    <span x-show="notifications.some(notification => !notification.read_at)" class="absolute top-0 right-0 block h-2 w-2 transform translate-x-1/2 -translate-y-1/2 rounded-full bg-red-600 ring-2 ring-white"></span>
+                                </button>
+
+                                <!-- Offcanvas Backdrop -->
+                                <div x-cloak x-show="open" x-transition:enter="transition ease-out duration-300"
+                                    x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+                                    x-transition:leave="transition ease-in duration-200"
+                                    x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+                                    x-bind:aria-hidden="!open" tabindex="-1" role="dialog"
+                                    aria-labelledby="pm-offcanvas-title"
+                                    class="z-90 fixed inset-0 overflow-hidden bg-zinc-700/75 backdrop-blur-sm dark:bg-zinc-950/50">
+                                    <!-- Offcanvas Sidebar -->
+                                    <div x-cloak x-show="open" x-on:click.away="open = false"
+                                        x-bind="transitionClasses" x-transition:enter="transition ease-out duration-300"
+                                        x-transition:enter-end="translate-x-0 translate-y-0"
+                                        x-transition:leave="transition ease-in duration-200"
+                                        x-transition:leave-start="translate-x-0 translate-y-0" role="document"
+                                        class="absolute flex w-full flex-col bg-white shadow-lg will-change-transform dark:bg-zinc-900 dark:text-zinc-100 dark:shadow-zinc-950"
+                                        x-bind:class="{
+                                            'h-dvh top-0 end-0': position === 'end',
+                                            'h-dvh top-0 start-0': position === 'start',
+                                            'bottom-0 start-0 end-0': position === 'top',
+                                            'bottom-0 start-0 end-0': position === 'bottom',
+                                            'h-64': position === 'top' || position === 'bottom',
+                                            'sm:max-w-xs': size === 'xs' && !(position === 'top' ||
+                                                position === 'bottom'),
+                                            'sm:max-w-sm': size === 'sm' && !(position === 'top' ||
+                                                position === 'bottom'),
+                                            'sm:max-w-md': size === 'md' && !(position === 'top' ||
+                                                position === 'bottom'),
+                                            'sm:max-w-lg': size === 'lg' && !(position === 'top' ||
+                                                position === 'bottom'),
+                                            'sm:max-w-xl': size === 'xl' && !(position === 'top' ||
+                                                position === 'bottom'),
+                                            'max-w-72': !mobileFullWidth && !(position === 'top' ||
+                                                position === 'bottom'),
+                                        }">
+                                        <!-- Header -->
+                                        <div
+                                            class="flex min-h-16 flex-none items-center justify-between border-b border-zinc-100 px-5 dark:border-zinc-800 md:px-7">
+                                            <h3 id="pm-offcanvas-title" class="py-5 font-semibold">Notifications</h3>
+
+                                            <!-- Close Button -->
+                                            <button x-on:click="open = false" type="button"
+                                                class="inline-flex items-center justify-center gap-2 rounded-lg border border-zinc-200 bg-white px-3 py-2 text-xs font-semibold leading-5 text-zinc-800 hover:border-zinc-300 hover:text-zinc-900 hover:shadow-sm focus:ring-zinc-300/25 active:border-zinc-200 active:shadow-none dark:border-zinc-700 dark:bg-transparent dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-200 dark:focus:ring-zinc-600/50 dark:active:border-zinc-700">
+                                                <svg class="hi-solid hi-x -mx-1 inline-block size-4" fill="currentColor"
+                                                    viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd"
+                                                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                                        clip-rule="evenodd"></path>
+                                                </svg>
+                                            </button>
+                                            <!-- END Close Button -->
+                                        </div>
+                                        <!-- END Header -->
+
+                                        <!-- Content -->
+                                        <div class="flex grow flex-col overflow-y-auto p-5 md:p-7">
+                                            <template x-for="notification in notifications" :key="notification.id">
+                                                <div :class="{'bg-gray-100 dark:bg-gray-800': notification.read_at, 'bg-blue-100 dark:bg-blue-800': !notification.read_at}" class="mb-4 rounded-lg p-4 shadow-md">
+                                                    <div class="flex justify-between">
+                                                        <div>
+                                                            <h4 class="text-lg font-semibold" x-text="notification.title"></h4>
+                                                            <p class="text-sm text-gray-600 dark:text-gray-400" x-text="notification.data.message"></p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="mt-4 flex items-center justify-between">
+                                                        <div class="flex items-center gap-2 text-gray-500">
+                                                            <div class="flex items-center">
+                                                                <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                                                </svg>
+                                                                <p class="text-xs font-medium ml-2" x-text="new Date(notification.created_at).toLocaleDateString()"></p>
+                                                            </div>
+                                                            <button x-on:click="markAsRead(notification.id)" class="inline-block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:relative">
+                                                                Mark as read
+                                                            </button>
+                                                            <button x-on:click="deleteNotification(notification.id)" class="inline-block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:relative">
+                                                                Delete
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </template>
+                                        </div>
+                                        <!-- END Content -->
+                                    </div>
+                                    <!-- END Offcanvas Sidebar -->
                                 </div>
-
-                                <!--
-                Dropdown menu, show/hide based on menu state.
-
-                Entering: "transition ease-out duration-100"
-                  From: "transform opacity-0 scale-95"
-                  To: "transform opacity-100 scale-100"
-                Leaving: "transition ease-in duration-75"
-                  From: "transform opacity-100 scale-100"
-                  To: "transform opacity-0 scale-95"
-              -->
-                                {{-- <div class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black/5 focus:outline-none"
-                                    role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button"
-                                    tabindex="-1">
-                                    <!-- Active: "bg-gray-100 outline-none", Not Active: "" -->
-                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem"
-                                        tabindex="-1" id="user-menu-item-0">Your Profile</a>
-                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem"
-                                        tabindex="-1" id="user-menu-item-1">Settings</a>
-                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem"
-                                        tabindex="-1" id="user-menu-item-2">Sign out</a>
-                                </div> --}}
+                                <!-- END Offcanvas Backdrop -->
                             </div>
+                            <!-- END Offcanvas -->
+
+                            {{--  --}}
+
+
                         </div>
                     </div>
                     <div class="-mr-2 flex md:hidden">
@@ -170,9 +235,10 @@
                             <!-- Placeholder -->
                             <!-- Offcanvas Toggle Button -->
 
-                            <button class="inline-block rounded border border-indigo-600 px-12 py-3 text-sm font-medium text-indigo-600 hover:bg-indigo-600 hover:text-white focus:outline-none focus:ring active:bg-indigo-500"
-                            x-on:click="openCreationForm()" type="button">
-                            Create a new project
+                            <button
+                                class="inline-block rounded border border-indigo-600 px-12 py-3 text-sm font-medium text-indigo-600 hover:bg-indigo-600 hover:text-white focus:outline-none focus:ring active:bg-indigo-500"
+                                x-on:click="openCreationForm()" type="button">
+                                Create a new project
                             </button>
 
 
@@ -388,8 +454,7 @@
                                             View
                                         </button>
 
-                                        <button
-                                            x-on:click="deleteProject(project.id)"
+                                        <button x-on:click="deleteProject(project.id)"
                                             class="inline-block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:relative">
                                             Delete
                                         </button>
@@ -407,6 +472,193 @@
     </div>
 
     <script>
+        // notificationApp function
+        function notificationApp() {
+            return {
+                open: false,
+                mobileFullWidth: false,
+                position: 'end',
+                size: 'md',
+                transitionClasses: {
+                    'x-transition:enter-start'() {
+                        if (this.position === 'start') {
+                            return '-translate-x-full rtl:translate-x-full';
+                        } else if (this.position === 'end') {
+                            return 'translate-x-full rtl:-translate-x-full';
+                        } else if (this.position === 'top') {
+                            return '-translate-y-full';
+                        } else if (this.position === 'bottom') {
+                            return 'translate-y-full';
+                        }
+                    },
+                    'x-transition:leave-end'() {
+                        if (this.position === 'start') {
+                            return '-translate-x-full rtl:translate-x-full';
+                        } else if (this.position === 'end') {
+                            return 'translate-x-full rtl:-translate-x-full';
+                        } else if (this.position === 'top') {
+                            return '-translate-y-full';
+                        } else if (this.position === 'bottom') {
+                            return 'translate-y-full';
+                        }
+                    },
+                },
+
+
+                notifications: [],
+
+                init() {
+                    this.fetchNotifications();
+                },
+
+                async fetchNotifications() {
+                    try {
+                        let response = await fetch('api/notifications', {
+                            method: 'GET',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Accept': 'application/json',
+                                'Authorization': 'Bearer ' + localStorage.getItem('token')
+                            }
+                        });
+
+                        let data = await response.json();
+
+                        if (!response.ok) {
+                            console.error('Error fetching notifications:', data);
+                            return;
+                        }
+
+                        this.notifications = data.payload;
+
+                        console.log(this.notifications);
+
+                    } catch (error) {
+                        console.error('Error:', error);
+                    }
+                },
+
+                // create markAllAsRead function
+                async markAllAsRead() {
+                    try {
+                        let response = await fetch('api/notifications', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Accept': 'application/json',
+                                'Authorization': 'Bearer ' + localStorage.getItem('token')
+                            }
+                        });
+
+                        let data = await response.json();
+
+                        if (!response.ok) {
+                            console.error('Error marking all notifications as read:', data);
+                            return;
+                        }
+
+                        this.notifications = this.notifications.map(notification => {
+                            notification.read_at = new Date().toISOString();
+                            return notification;
+                        });
+
+                        console.log(this.notifications);
+
+                    } catch (error) {
+                        console.error('Error:', error);
+                    }
+                },
+
+                // create markAsRead function
+                async markAsRead(id) {
+                    try {
+                        let response = await fetch(`api/notifications/${id}`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Accept': 'application/json',
+                                'Authorization': 'Bearer ' + localStorage.getItem('token')
+                            }
+                        });
+
+                        let data = await response.json();
+
+                        if (!response.ok) {
+                            console.error('Error marking notification as read:', data);
+                            return;
+                        }
+
+                        this.notifications = this.notifications.map(notification => {
+                            if (notification.id === id) {
+                                notification.read_at = new Date().toISOString();
+                            }
+                            return notification;
+                        });
+
+                        console.log(this.notifications);
+
+                    } catch (error) {
+                        console.error('Error:', error);
+                    }
+                },
+
+                // create deleteNotification function
+                async deleteNotification(id) {
+                    try {
+                        let response = await fetch(`api/notifications/${id}`, {
+                            method: 'DELETE',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Accept': 'application/json',
+                                'Authorization': 'Bearer ' + localStorage.getItem('token')
+                            }
+                        });
+
+                        let data = await response.json();
+
+                        if (!response.ok) {
+                            console.error('Error deleting notification:', data);
+                            return;
+                        }
+
+                        this.notifications = this.notifications.filter(notification => notification.id !== id);
+
+                        console.log(this.notifications);
+
+                    } catch (error) {
+                        console.error('Error:', error);
+                    }
+                },
+
+                // create deleteAllNotifications function
+                async deleteAllNotifications() {
+                    try {
+                        let response = await fetch('api/notifications', {
+                            method: 'DELETE',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Accept': 'application/json',
+                                'Authorization': 'Bearer ' + localStorage.getItem('token')
+                            }
+                        });
+
+                        let data = await response.json();
+
+                        if (!response.ok) {
+                            console.error('Error deleting all notifications:', data);
+                            return;
+                        }
+
+                        this.notifications = [];
+
+                        console.log(this.notifications);
+
+                    } catch (error) {
+                        console.error('Error:', error);
+                    }
+                },
+            }
+        }
         // create submitForm function
         function app() {
             return {
