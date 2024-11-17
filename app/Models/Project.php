@@ -47,6 +47,11 @@ class Project extends BaseModel
         static::creating(function ($project) {
             if (auth()->check()) $project->user_id = auth()->id();
         });
+
+        // at fetching, only show projects of the authenticated user
+        static::addGlobalScope('user', function ($builder) {
+            if (auth()->check()) $builder->where('user_id', auth()->id());
+        });
     }
 
 }

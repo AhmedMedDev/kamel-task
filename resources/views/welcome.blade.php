@@ -30,6 +30,8 @@
                     <div class="hidden md:block">
                         <div class="ml-4 flex items-center md:ml-6" x-data="notificationApp">
 
+                            <button @click="logout()" type="button"
+                                class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white">Logout</button>
 
                             {{--  --}}
                             <!-- Offcanvas -->
@@ -45,7 +47,8 @@
                                         <path stroke-linecap="round" stroke-linejoin="round"
                                             d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
                                     </svg>
-                                    <span x-show="notifications.some(notification => !notification.read_at)" class="absolute top-0 right-0 block h-2 w-2 transform translate-x-1/2 -translate-y-1/2 rounded-full bg-red-600 ring-2 ring-white"></span>
+                                    <span x-show="notifications.some(notification => !notification.read_at)"
+                                        class="absolute top-0 right-0 block h-2 w-2 transform translate-x-1/2 -translate-y-1/2 rounded-full bg-red-600 ring-2 ring-white"></span>
                                 </button>
 
                                 <!-- Offcanvas Backdrop -->
@@ -104,25 +107,41 @@
                                         <!-- Content -->
                                         <div class="flex grow flex-col overflow-y-auto p-5 md:p-7">
                                             <template x-for="notification in notifications" :key="notification.id">
-                                                <div :class="{'bg-gray-100 dark:bg-gray-800': notification.read_at, 'bg-blue-100 dark:bg-blue-800': !notification.read_at}" class="mb-4 rounded-lg p-4 shadow-md">
+                                                <div :class="{
+                                                    'bg-gray-100 dark:bg-gray-800': notification
+                                                        .read_at,
+                                                    'bg-blue-100 dark:bg-blue-800': !notification.read_at
+                                                }"
+                                                    class="mb-4 rounded-lg p-4 shadow-md">
                                                     <div class="flex justify-between">
                                                         <div>
-                                                            <h4 class="text-lg font-semibold" x-text="notification.title"></h4>
-                                                            <p class="text-sm text-gray-600 dark:text-gray-400" x-text="notification.data.message"></p>
+                                                            <h4 class="text-lg font-semibold"
+                                                                x-text="notification.title"></h4>
+                                                            <p class="text-sm text-gray-600 dark:text-gray-400"
+                                                                x-text="notification.data.message"></p>
                                                         </div>
                                                     </div>
                                                     <div class="mt-4 flex items-center justify-between">
                                                         <div class="flex items-center gap-2 text-gray-500">
                                                             <div class="flex items-center">
-                                                                <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                                                <svg class="size-4" fill="none"
+                                                                    stroke="currentColor" viewBox="0 0 24 24"
+                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                    <path stroke-linecap="round"
+                                                                        stroke-linejoin="round" stroke-width="2"
+                                                                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z">
+                                                                    </path>
                                                                 </svg>
-                                                                <p class="text-xs font-medium ml-2" x-text="new Date(notification.created_at).toLocaleDateString()"></p>
+                                                                <p class="text-xs font-medium ml-2"
+                                                                    x-text="new Date(notification.created_at).toLocaleDateString()">
+                                                                </p>
                                                             </div>
-                                                            <button x-on:click="markAsRead(notification.id)" class="inline-block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:relative">
+                                                            <button x-on:click="markAsRead(notification.id)"
+                                                                class="inline-block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:relative">
                                                                 Mark as read
                                                             </button>
-                                                            <button x-on:click="deleteNotification(notification.id)" class="inline-block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:relative">
+                                                            <button x-on:click="deleteNotification(notification.id)"
+                                                                class="inline-block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:relative">
                                                                 Delete
                                                             </button>
                                                         </div>
@@ -235,12 +254,44 @@
                             <!-- Placeholder -->
                             <!-- Offcanvas Toggle Button -->
 
-                            <button
-                                class="inline-block rounded border border-indigo-600 px-12 py-3 text-sm font-medium text-indigo-600 hover:bg-indigo-600 hover:text-white focus:outline-none focus:ring active:bg-indigo-500"
-                                x-on:click="openCreationForm()" type="button">
-                                Create a new project
-                            </button>
+                            <div class="flex">
+                                <button
+                                    class="inline-block rounded border border-indigo-600 px-12 py-3 text-sm font-medium text-indigo-600 hover:bg-indigo-600 hover:text-white focus:outline-none focus:ring active:bg-indigo-500"
+                                    x-on:click="openCreationForm()" type="button">
+                                    Create a new project
+                                </button>
 
+                                {{-- // create a filter section that filters the projects based on their status (active or
+                                completed)
+                                // please make 3 boxes, one for all projects, one for active projects and one for
+                                completed projects
+                                // when a box is clicked, it should filter the projects based on their status
+                                // the active box should have a different background color than the completed box
+                                // the all projects box should have a different background color than the active and
+                                completed boxes
+                                // the all projects box should be the default selected box
+                                // the all projects box should have a different background color when it is selected --}}
+
+                                <div class="flex gap-4 ml-2">
+                                    <button
+                                        :class="filters.status === 0 ? 'inline-block rounded border border-indigo-600 px-12 py-3 text-sm font-medium text-white bg-indigo-600' : 'inline-block rounded border border-indigo-600 px-12 py-3 text-sm font-medium text-indigo-600 hover:bg-indigo-600 hover:text-white focus:outline-none focus:ring active:bg-indigo-500'"
+                                        x-on:click="filterProjects(0)" type="button">
+                                        All 
+                                    </button>
+
+                                    <button
+                                        :class="filters.status === 1 ? 'inline-block rounded border border-indigo-600 px-12 py-3 text-sm font-medium text-white bg-indigo-600' : 'inline-block rounded border border-indigo-600 px-12 py-3 text-sm font-medium text-indigo-600 hover:bg-indigo-600 hover:text-white focus:outline-none focus:ring active:bg-indigo-500'"
+                                        x-on:click="filterProjects(1)" type="button">
+                                        Active 
+                                    </button>
+
+                                    <button
+                                        :class="filters.status === 2 ? 'inline-block rounded border border-indigo-600 px-12 py-3 text-sm font-medium text-white bg-indigo-600' : 'inline-block rounded border border-indigo-600 px-12 py-3 text-sm font-medium text-indigo-600 hover:bg-indigo-600 hover:text-white focus:outline-none focus:ring active:bg-indigo-500'"
+                                        x-on:click="filterProjects(2)" type="button">
+                                        Completed 
+                                    </button>
+                                </div>
+                            </div>
 
                             <!-- END Placeholder -->
 
@@ -319,7 +370,7 @@
                                                 </label>
 
                                                 <textarea id="Description" name="description" x-model="form.description"
-                                                    class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"></textarea>
+                                                    class="mt-1 w-full rounded-lg border-gray-200 align-top shadow-sm sm:text-sm" rows="4"></textarea>
                                                 <span x-show="errors.description" class="text-red-500 text-sm"
                                                     x-text="errors.description"></span>
                                             </div>
@@ -464,6 +515,56 @@
                             </div>
                         </article>
                     </template>
+                </div>
+
+                <div class="mt-8">
+                    <ol class="flex justify-center gap-1 text-xs font-medium ">
+                        <li>
+                            <button @click="fetchProjects(pagination.prev_page_url)"
+                                :disabled="!pagination.prev_page_url"
+                                :class="{ 'opacity-50 cursor-not-allowed': !pagination.prev_page_url }"
+                                class="inline-flex size-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 rtl:rotate-180">
+                                <span class="sr-only">Prev Page</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="size-3" viewBox="0 0 20 20"
+                                    fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                        </li>
+
+                        <template x-for="link in pagination.links" :key="link.label">
+                            <li>
+                                <button @click="fetchProjects(link.url)" :disabled="!link.url || link.active"
+                                    :class="{
+                                        'bg-blue-600 text-white border-blue-600': link.active,
+                                        'bg-white text-gray-900 border-gray-100': !link.active,
+                                        'opacity-50 cursor-not-allowed': !link.url
+                                    }"
+                                    x-text="link.label"
+                                    class="block size-8 rounded border border-gray-100 bg-white text-center leading-8 text-gray-900">
+                                </button>
+                            </li>
+                        </template>
+
+                        <li>
+                            <button @click="fetchProjects(pagination.next_page_url)"
+                                :disabled="!pagination.next_page_url"
+                                :class="{ 'opacity-50 cursor-not-allowed': !pagination.next_page_url }"
+                                class="inline-flex size-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 rtl:rotate-180">
+                                <span class="sr-only">Next Page</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="size-3" viewBox="0 0 20 20"
+                                    fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                        </li>
+                    </ol>
+                    {{--  --}}
+
                 </div>
                 {{-- Projects --}}
 
@@ -657,6 +758,12 @@
                         console.error('Error:', error);
                     }
                 },
+
+                // logout function
+                logout() {
+                    localStorage.removeItem('token');
+                    window.location.href = '/login';
+                }
             }
         }
         // create submitForm function
@@ -700,6 +807,15 @@
                 loading: false,
                 projects: [],
                 editingProjectId: '',
+                pagination: {
+                    current_page: 1,
+                    prev_page_url: null,
+                    next_page_url: null,
+                    links: [],
+                },
+                filters: {
+                    status: 0,
+                },
                 init() {
                     this.fetchProjects();
                 },
@@ -792,9 +908,9 @@
 
                     }
                 },
-                async fetchProjects() {
+                async fetchProjects(url = '/api/projects') {
                     try {
-                        let response = await fetch('api/projects', {
+                        let response = await fetch(url, {
                             method: 'GET',
                             headers: {
                                 'Content-Type': 'application/json',
@@ -811,6 +927,14 @@
                         }
 
                         this.projects = data.payload.data;
+                        this.pagination = {
+                            current_page: data.payload.current_page,
+                            prev_page_url: data.payload.prev_page_url,
+                            next_page_url: data.payload.next_page_url,
+                            links: data.payload.links.filter(
+                                (link) => !link.label.includes('Previous') && !link.label.includes('Next')
+                            ),
+                        };
 
                         console.log(this.projects);
 
@@ -914,7 +1038,14 @@
                         console.error('Error:', error);
                     }
                 },
+                // filterProjects function
+                filterProjects(status) {
+                    this.filters.status = status;
 
+                    let url = (status === 0) ? '/api/projects' : `/api/projects?filters[status][$eq]=${status}`;
+
+                    this.fetchProjects(url);
+                },
 
             }
         }
