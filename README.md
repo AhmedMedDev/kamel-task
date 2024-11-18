@@ -1,5 +1,19 @@
 # Project Installation and Testing Guide
 
+## Try the App
+
+You can try the app by visiting [https://kamel.meder.tech/](https://kamel.meder.tech/)
+
+You can log in with the following credentials:
+
+- **Manager**
+    - Email: `manager@example.com`
+    - Password: `password`
+
+- **Employee**
+    - Email: `employee@example.com`
+    - Password: `password`
+
 ## Installation
 
 1. **Clone the repository:**
@@ -38,14 +52,23 @@
 ## Running Tests
 
 1. **Run the test suite:**
+    Run all test cases in the test suite to ensure everything is working as expected:
     ```bash
     php artisan test
     ```
 
-2. **Check code coverage (optional):**
-    If you have Xdebug installed, you can generate a code coverage report:
+2. **Run a specific test case:**
+    If you need to run a specific test case (e.g., for a specific API endpoint), use the `--filter` option. For example, to test the registration endpoint, you can use:
     ```bash
-    php artisan test --coverage
+    php artisan test --filter test_registration_endpoint
     ```
 
-For any issues or contributions, please refer to the [CONTRIBUTING.md](CONTRIBUTING.md) file.
+    This allows you to target specific functionality and ensures faster debugging without running the entire test suite.
+
+3. **Explanation:**
+    Although a Postman collection was not created due to time constraints, the provided test cases cover all the necessary functionality. By running these tests individually using the `--filter` option, the reviewer can validate each endpoint effectively.
+
+4. **Benefits of the current approach:**
+    - Ensures automated testing directly in the development environment.
+    - Provides a quick way to pinpoint issues for specific features or endpoints.
+    - Removes the dependency on external tools like Postman for testing API functionality.

@@ -19,7 +19,6 @@ class AuthenticationTest extends TestCase
     {
         $response = $this->postJson('/api/auth/register', [
             'name' => $this->faker->name,
-            'phone' => $this->faker->numerify('######'),
             'email' => $this->faker->unique()->safeEmail,
             'password' => 'password',
             'device_name' => 'test_device',
