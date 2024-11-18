@@ -46,6 +46,12 @@ class DatabaseSeeder extends Seeder
                 'due_date' => now()->addDays(21),
                 'status' => 1,
             ],
+            [
+                'title' => 'Project 4',
+                'description' => 'Description 4',
+                'due_date' => now()->addDays(28),
+                'status' => 1,
+            ],
         ]);
 
         // for each project, create some tasks
@@ -64,6 +70,11 @@ class DatabaseSeeder extends Seeder
                 [
                     'title' => 'Task 3',
                     'description' => 'Description 3',
+                    'status' => 1,
+                ],
+                [
+                    'title' => 'Task 4',
+                    'description' => 'Description 4',
                     'status' => 1,
                 ],
             ]);
