@@ -15,8 +15,7 @@ class ProjectRepository implements RepositoryInterface
      */
     public function get(): array
     {
-        // return Project::filter()->paginate(request()->header('paginationItems'))->toArray();
-        return Project::filter()->paginate(2)->toArray();
+        return Project::filter()->paginate(6)->toArray();
     }
 
     public function create(array $data): Project
