@@ -39,12 +39,15 @@ Route::prefix('auth')->group(function () {
     Route::delete('delete-account', [AccountController::class, 'deleteAccount'])->middleware('auth:sanctum');
 
     Route::get('user', static fn(Request $request)
-        => response()->json(['payload' => $request->user()->load('userable')]))->middleware('auth:sanctum');
+        => response()->json(['payload' => $request->user()]))->middleware('auth:sanctum');
 });
 
 
 Route::apiResource('projects', ProjectController::class)->except(['show']);
 Route::apiResource('tasks', TaskController::class)->except(['show']);
+
+// my assigned tasks
+Route::get('tasks/my-assigned-tasks', [TaskController::class, 'myAssignedTasks'])->name('tasks.myAssignedTasks');
 
 // we need to make an endpoint to assign task to user
 Route::post('tasks/{task}/assign', [TaskController::class, 'assignTask'])->name('tasks.assign');

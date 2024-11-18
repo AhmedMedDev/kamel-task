@@ -68,4 +68,11 @@ class TaskController extends Controller
             'message' => 'assigned successfully',
         ]);
     }
+
+    public function myAssignedTasks(): JsonResponse
+    {
+        return response()->json([
+            'payload' => $this->controllerService->myAssignedTasks()
+        ]);
+    }
 }

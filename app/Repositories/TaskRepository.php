@@ -32,4 +32,9 @@ class TaskRepository implements RepositoryInterface
     {
         return $Task->delete();
     }
+
+    public function myAssignedTasks(): array
+    {
+        return Task::filter()->sort()->withoutGlobalScope('project')->where('user_id', auth()->id())->paginate(6)->toArray();
+    }
 }

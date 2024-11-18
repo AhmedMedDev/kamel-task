@@ -52,6 +52,37 @@ class Project extends BaseModel
         static::addGlobalScope('user', function ($builder) {
             if (auth()->check()) $builder->where('user_id', auth()->id());
         });
+
+        // activity log
+        static::created(function ($project) {
+            ActivityLog::create([
+                'user_id' => auth()->id(),
+                'model' => 'App\Models\Project',
+                'model_id' => $project->id,
+                'activity' => 'Project ' . $project->title . ' created',
+                'activity_type' => 'create',
+            ]);
+        });
+
+        static::updated(function ($project) {
+            ActivityLog::create([
+                'user_id' => auth()->id(),
+                'model' => 'App\Models\Project',
+                'model_id' => $project->id,
+                'activity' => 'Project ' . $project->title . ' updated',
+                'activity_type' => 'update',
+            ]);
+        });
+
+        static::deleted(function ($project) {
+            ActivityLog::create([
+                'user_id' => auth()->id(),
+                'model' => 'App\Models\Project',
+                'model_id' => $project->id,
+                'activity' => 'Project ' . $project->title . ' deleted',
+                'activity_type' => 'delete',
+            ]);
+        });
     }
 
 }

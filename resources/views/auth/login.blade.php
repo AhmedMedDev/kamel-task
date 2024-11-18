@@ -148,7 +148,7 @@
                                 'Authorization': `Bearer ${data.payload.token}`
                             }
                         });
-                        window.location.href = '/dashboard';
+                        window.location.href = '/';
 
                     } catch (error) {
                         console.error('Error:', error);

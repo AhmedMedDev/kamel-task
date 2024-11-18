@@ -13,13 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Route::view('login', 'auth.login');
 Route::view('register', 'auth.register');
-Route::view('dashboard', 'welcome');
 
-// tasks
+Route::view('/', 'index');
 Route::view('tasks', 'tasks');
+Route::view('my-assigned-tasks', 'my-tasks');
