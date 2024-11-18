@@ -30,25 +30,25 @@ class DatabaseSeeder extends Seeder
         $manager->projects()->createMany([
             [
                 'title' => 'Project 1',
-                'description' => 'Description 1',
+                'description' => 'lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
                 'due_date' => now()->addDays(7),
                 'status' => 1,
             ],
             [
                 'title' => 'Project 2',
-                'description' => 'Description 2',
+                'description' => 'lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
                 'due_date' => now()->addDays(14),
                 'status' => 1,
             ],
             [
                 'title' => 'Project 3',
-                'description' => 'Description 3',
+                'description' => 'lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
                 'due_date' => now()->addDays(21),
                 'status' => 1,
             ],
             [
                 'title' => 'Project 4',
-                'description' => 'Description 4',
+                'description' => 'lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
                 'due_date' => now()->addDays(28),
                 'status' => 1,
             ],
@@ -59,32 +59,34 @@ class DatabaseSeeder extends Seeder
             $project->tasks()->createMany([
                 [
                     'title' => 'Task 1',
-                    'description' => 'Description 1',
+                    'description' => 'lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
                     'status' => 1,
                 ],
                 [
                     'title' => 'Task 2',
-                    'description' => 'Description 2',
+                    'description' => 'lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
                     'status' => 1,
                 ],
                 [
                     'title' => 'Task 3',
-                    'description' => 'Description 3',
+                    'description' => 'lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
                     'status' => 1,
                 ],
                 [
                     'title' => 'Task 4',
-                    'description' => 'Description 4',
+                    'description' => 'lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
                     'status' => 1,
                 ],
             ]);
         });
 
         // for random tasks, make user id as employee id
-        \App\Models\Task::inRandomOrder()->take(5)->get()->each(function ($task) use ($employee) {
-            $task->update(['user_id' => $employee->id]);
-            $task->user->notify(new TaskAssignedNotification($task));
-        });
 
+        $tasks = \App\Models\Task::withoutGlobalScope('project')->inRandomOrder()->limit(6)->get();
+
+        $tasks->each(function ($task) use ($employee) {
+            $task->update(['user_id' => $employee->id]);
+        });
+    
     }
 }
