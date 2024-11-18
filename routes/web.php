@@ -20,3 +20,6 @@ Route::get('/', function () {
 Route::view('login', 'auth.login');
 Route::view('register', 'auth.register');
 Route::view('dashboard', 'welcome');
+
+// tasks
+Route::view('tasks', 'tasks');

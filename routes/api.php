@@ -56,3 +56,5 @@ Route::post('notifications/{notification}', [NotificationController::class, 'mar
 Route::delete('notifications/{notification}', [NotificationController::class, 'destroy'])->name('notifications.destroy');
 Route::delete('notifications', [NotificationController::class, 'destroyAll'])->name('notifications.destroyAll');
 
+// create endpoint to get all users
+Route::get('users', [AccountController::class, 'index'])->middleware('auth:sanctum')->name('users.index');

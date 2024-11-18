@@ -15,6 +15,15 @@ class AccountController extends Controller
     public function __construct(private AccountService $accountService)
     {}
 
+    public function index(): JsonResponse
+    {
+        $users = $this->accountService->getAllUsers();
+
+        return response()->json([
+            'payload' => $users
+        ]);
+    }
+
     public function claimAccountDeletion(): JsonResponse
     {
         $this->accountService->claimAccountDeletion();

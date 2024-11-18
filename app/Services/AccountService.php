@@ -38,4 +38,9 @@ class AccountService
             $user->userable()->update($data['customer']);
         }
     }
+
+    public function getAllUsers(): array
+    {
+        return User::select('id', 'name')->get()->toArray();
+    }
 }

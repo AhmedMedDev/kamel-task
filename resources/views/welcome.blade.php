@@ -500,10 +500,11 @@
                                             Edit
                                         </button>
 
-                                        <button
+                                        <a
+                                            :href="`tasks?project_id=${project.id}`"
                                             class="inline-block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:relative">
-                                            View
-                                        </button>
+                                                View
+                                        </a>
 
                                         <button x-on:click="deleteProject(project.id)"
                                             class="inline-block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:relative">
